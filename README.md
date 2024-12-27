@@ -19,7 +19,7 @@ A smart envelope budgeting web application that helps you save money and reach y
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/envelopepal.git
+git clone https://github.com/fimeg/envelopepal.git
 cd envelopepal
 ```
 
@@ -31,7 +31,7 @@ OR:
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/envelopepal.git
+git clone https://github.com/fimeg/envelopepal.git
 cd envelopepal
 ```
 
