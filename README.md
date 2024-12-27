@@ -12,22 +12,13 @@ A smart envelope budgeting web application that helps you save money and reach y
 - 🎨 Multiple theme options (Green, Blue, Purple, Orange)
 - 🦦 Friendly weasel mascot with savings tips
 - 📱 Responsive design for all devices
-- 💾 Local storage for data persistence
-- 🚀 Quick-add categories with recommended goals
+- 🗄️ SQLite database for persistent storage
+- 🐳 Docker support for easy deployment
+- 🚀 RESTful API for all operations
 
 ## Getting Started
 
-1. Clone the repository:
-```bash
-git clone https://github.com/fimeg/envelopepal.git
-cd envelopepal
-```
-
-2. Open `index.html` in your web browser to start using EnvelopePal.
-
-No build process or dependencies required! EnvelopePal runs entirely in the browser using vanilla JavaScript.
-
-OR: 
+### Using Docker (Recommended)
 
 1. Clone the repository:
 ```bash
@@ -35,58 +26,94 @@ git clone https://github.com/fimeg/envelopepal.git
 cd envelopepal
 ```
 
-2. Start a local development server:
+2. Build and start the containers:
 ```bash
-npm install
-npm start
+docker-compose up --build
 ```
 
-This will start a local server at `http://localhost:3000`
+3. Access the application:
+- Frontend: http://localhost
+- Backend API: http://localhost:5000/api
 
+The application data will persist in the SQLite database located in the `backend/instance` directory.
+
+### Manual Setup (Development)
+
+1. Clone the repository:
+```bash
+git clone https://github.com/fimeg/envelopepal.git
+cd envelopepal
+```
+
+2. Set up the backend:
+```bash
+cd backend
+python -m venv env
+source env/bin/activate  # On Windows: env\Scripts\activate
+pip install -r requirements.txt
+python run.py
+```
+
+3. Set up the frontend:
+```bash
+# In a new terminal
+python -m http.server 80  # Or use any static file server
+```
+
+4. Access the application at http://localhost
 
 ## Usage
 
-### Creating Envelopes
-
-1. Use the quick-add buttons for common categories, or
-2. Create a custom envelope by entering:
-   - Envelope name
-   - Starting amount
-   - Target goal amount
-
 ### Managing Envelopes
 
-- Add or subtract funds from each envelope
-- Track progress toward savings goals
-- View and edit transaction history
+- Create envelopes with name and budget
+- Add or subtract funds through transactions
+- Track progress toward budget goals
+- View transaction history
 - Export envelope data to CSV
 - Delete envelopes when no longer needed
 
-### CSV Import/Export Format
+### CSV Export Format
 
-#### Export Format
 The CSV export includes the following columns:
 ```
-Date,Type,Name,Amount,Balance
+Date,Type,Description,Amount,Balance
 MM/DD/YYYY,deposit/withdrawal,"Transaction Name",00.00,00.00
 ```
 
-#### Import Format
-To import an envelope, create a CSV file with these columns:
-```
-Date,Type,Name,Amount
-MM/DD/YYYY,deposit/withdrawal,"Transaction Name",00.00
-```
+## Architecture
 
-## Local Storage
+### Frontend
+- Static HTML/CSS/JavaScript
+- Communicates with backend via RESTful API
+- Theme customization with persistent preferences
 
-EnvelopePal uses browser local storage to save:
-- Envelope data
-- Transaction history
-- Achievements
-- Theme preference
+### Backend
+- Flask application with SQLite database
+- RESTful API endpoints for all CRUD operations
+- Models for Envelopes, Transactions, and Achievements
 
-No server or database required!
+### Docker Configuration
+- Frontend container with Nginx serving static files
+- Backend container with Flask and SQLite
+- Docker Compose for orchestration
+- Persistent volume for SQLite database
+
+## API Endpoints
+
+### Envelopes
+- GET `/api/envelopes` - List all envelopes
+- POST `/api/envelopes` - Create new envelope
+- PUT `/api/envelopes/<id>` - Update envelope
+- DELETE `/api/envelopes/<id>` - Delete envelope
+
+### Transactions
+- GET `/api/envelopes/<id>/transactions` - List transactions for envelope
+- POST `/api/envelopes/<id>/transactions` - Add transaction to envelope
+
+### Achievements
+- GET `/api/achievements` - List all achievements
+- PUT `/api/achievements/<id>` - Update achievement
 
 ## Contributing
 
@@ -98,7 +125,6 @@ No server or database required!
 
 ## Screenshot(s)
 ![Screenshot_20241226_230819](https://github.com/user-attachments/assets/67e93165-4ace-4276-9f7f-227ff26ce8f4)
-
 
 ## License
 
