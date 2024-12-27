@@ -1,0 +1,33 @@
+{
+  "name": "envelopepal",
+  "version": "1.0.0",
+  "description": "Smart envelope budgeting web application that helps you save money and reach your financial goals",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve",
+    "lint": "npx eslint *.js",
+    "format": "npx prettier --write ."
+  },
+  "keywords": [
+    "budget",
+    "envelope-budgeting",
+    "finance",
+    "savings",
+    "web-app"
+  ],
+  "author": "Casey Tunturi - Samaritan Solutions LLC",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^8.0.0",
+    "prettier": "^3.0.0",
+    "serve": "^14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/envelopepal.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/envelopepal/issues"
+  },
+  "homepage": "https://github.com/yourusername/envelopepal#readme"
+}

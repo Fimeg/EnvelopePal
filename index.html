@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnvelopePal - Simple Budget Management</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>EnvelopePal</h1>
+            <div class="header-weasel" onclick="toggleWeaselTip()">🦦</div>
+            <p>Smart envelope budgeting that helps you save</p>
+            <div class="total-balance" id="total-balance">
+                <h2>Total Balance</h2>
+                <div class="balance-amount">$0.00</div>
+            </div>
+        </header>
+
+        <div class="achievements-section">
+            <div class="achievements-header" onclick="toggleAchievements()">
+                <h3>🏆 Recent Achievements</h3>
+                <span class="toggle-icon">▼</span>
+            </div>
+            <div id="achievements" class="achievements-content">
+                <!-- Achievements will be loaded here -->
+            </div>
+        </div>
+
+        <div class="quick-categories">
+            <h3>Quick Add Categories</h3>
+            <p class="helper-text">Start with 10% of the goal amount and work your way up! 🎯</p>
+            <div class="category-chips">
+                <button onclick="quickAdd('Groceries', 500)">🛒 Groceries (Goal: $500)</button>
+                <button onclick="quickAdd('Rent', 1200)">🏠 Rent (Goal: $1,200)</button>
+                <button onclick="quickAdd('Entertainment', 200)">🎮 Entertainment (Goal: $200)</button>
+                <button onclick="quickAdd('Savings', 1000)">💰 Savings (Goal: $1,000)</button>
+                <button onclick="quickAdd('Emergency', 2000)">🚨 Emergency (Goal: $2,000)</button>
+                <button onclick="quickAdd('Vacation', 3000)">✈️ Vacation (Goal: $3,000)</button>
+                <button onclick="quickAdd('Car', 5000)">🚗 Car (Goal: $5,000)</button>
+                <button onclick="quickAdd('Education', 10000)">📚 Education (Goal: $10,000)</button>
+            </div>
+        </div>
+
+        <div class="add-envelope">
+            <div class="input-group">
+                <input type="text" id="envelope-name" placeholder="Envelope name (e.g., Groceries)">
+                <input type="number" id="envelope-amount" placeholder="Starting amount (10-20% recommended)">
+                <input type="number" id="envelope-goal" placeholder="Target goal amount">
+            </div>
+            <button onclick="addEnvelope()" class="create-btn">Create Smart Envelope ✨</button>
+            <p class="helper-text">Pro tip: Set realistic goals and start small! The magic weasel appears when you reach them! 🦦</p>
+        </div>
+
+        <div class="envelopes" id="envelopes-list">
+            <!-- Envelopes will be added here dynamically -->
+        </div>
+
+        <footer>
+            <label class="import-btn">
+                📤 Import Envelope from CSV
+                <input type="file" accept=".csv" onchange="importNewEnvelope(this)" style="display: none;">
+            </label>
+            <p>© 2024 EnvelopePal. All rights reserved.</p>
+            <p class="credits">Created by Casey Tunturi - Samaritan Solutions LLC</p>
+        </footer>
+    </div>
+    <div class="theme-switcher">
+        <div class="theme-option active" data-theme="green" onclick="setTheme('green')"></div>
+        <div class="theme-option" data-theme="blue" onclick="setTheme('blue')"></div>
+        <div class="theme-option" data-theme="purple" onclick="setTheme('purple')"></div>
+        <div class="theme-option" data-theme="orange" onclick="setTheme('orange')"></div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
