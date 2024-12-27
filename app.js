@@ -223,6 +223,49 @@ async function deleteEnvelope(id) {
     }
 }
 
+// Export envelope transactions to CSV
+async function exportToExcel(id) {
+    const envelope = envelopes.find(e => e.id === id);
+    if (!envelope) return;
+
+    try {
+        const transactions = await loadTransactions(id);
+        
+        // Prepare CSV content
+        const headers = ['Date', 'Type', 'Description', 'Amount', 'Balance'];
+        let csvContent = headers.join(',') + '\n';
+        
+        let runningBalance = 0;
+        transactions.forEach(transaction => {
+            const amount = transaction.amount;
+            runningBalance += amount;
+            
+            const row = [
+                new Date(transaction.date).toLocaleDateString(),
+                amount > 0 ? 'deposit' : 'withdrawal',
+                `"${transaction.description}"`,
+                Math.abs(amount).toFixed(2),
+                runningBalance.toFixed(2)
+            ];
+            csvContent += row.join(',') + '\n';
+        });
+
+        // Create and trigger download
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        link.setAttribute('href', url);
+        link.setAttribute('download', `${envelope.name}_transactions.csv`);
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    } catch (error) {
+        console.error('Failed to export transactions:', error);
+        alert('Failed to export transactions. Please try again.');
+    }
+}
+
 // Render envelopes
 function renderEnvelopes() {
     const container = document.getElementById('envelopes-list');
@@ -250,6 +293,7 @@ function renderEnvelopes() {
                 <button class="subtract-btn" onclick="updateEnvelope(${envelope.id}, 'subtract', this.parentElement.querySelector('input').value)">Subtract</button>
             </div>
             <div class="top-actions">
+                <button class="export-btn" onclick="exportToExcel(${envelope.id})">📥</button>
                 <button class="delete-btn" onclick="deleteEnvelope(${envelope.id})">×</button>
             </div>
         `;
