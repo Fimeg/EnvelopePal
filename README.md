@@ -27,6 +27,23 @@ cd envelopepal
 
 No build process or dependencies required! EnvelopePal runs entirely in the browser using vanilla JavaScript.
 
+OR: 
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/envelopepal.git
+cd envelopepal
+```
+
+2. Start a local development server:
+```bash
+npm install
+npm start
+```
+
+This will start a local server at `http://localhost:3000`
+
+
 ## Usage
 
 ### Creating Envelopes
